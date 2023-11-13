@@ -9,12 +9,12 @@ const items = [
     { id: 8, name: "sourdough loaf", price: 5.5, categoryId: 4, inventory: 100 },
   ];
   
-  const cart = [];
+  const cart = [1,5,7];
   
   // ------------------ Complete the functions written below ------------------------------ //
   
   function logItemNames() {
-    items.forEach(logItemNames);
+    items.forEach((item)=>console.log(item.name));
     //TODO: use the .forEach() method to log out the name of each item
   }
   
@@ -23,7 +23,8 @@ const items = [
    * @returns {{id: number, name: string, price: number, category: string, inventory: number}} item
    */
   function findItemById(id) {
-    return id < 0;
+     const item = items.find((item)=>item.id === id)
+     return item.name
     // TODO: Use the .find() method to return the item who's id matches the passed in id
   }
   function myFunction() {
@@ -34,10 +35,11 @@ const items = [
    * @returns {items[]} Returns a new array with capitalized names
    */
   function capitalizeNames() {
-    let map1 = items.map(0).toUpperCase()+items.slice(1);
-    return map1.capitalizeNames
+    return items.map(item =>{
+      return item.name.toUpperCase()
+    })
     // TODO:  Use the .map() and possibly .slice() methods and return a new items array with the item names capitalized
-    // DO NOT MUTATE THE ORIGINAL ARRAY IN YOU LOGIC
+    // DO NOT MUTATE THE ORIGINAL ARRAY IN YOUR LOGIC
   }
   
   /**
@@ -45,8 +47,9 @@ const items = [
    */
   
   function calculateTotalInventory() {
-    const initialValue = 100;
-    const sumOf = items.reduce((accumulator, currentValue) => accumulator);
+    return items.reduce((final, item)=>{
+      return final + item.inventory
+    },0)
     // TODO Use the .reduce() method to return the total number of items in inventory
   }
   
@@ -54,6 +57,11 @@ const items = [
    * @returns {number} the total price of all inventory items combined
    */
   function calculateAllInventoryPrice() {
+    return items.reduce((final, item)=>{
+      const price = item.price
+      const invPrice = price * item.inventory
+      return final + invPrice
+    },0)
     // TODO Use the .reduce() method to return the total price of all the items in inventory
   }
   
@@ -62,6 +70,9 @@ const items = [
    * @returns {number} the price of the item passed in
    */
   function getItemPriceByName(name) {
+   const itemIndex = items.findIndex((item)=>(item.name===name))
+   const item = items[itemIndex]
+   return item.price
     // TODO: Use your knowledge of objects and arrays to get the price of the item passed in
   }
   
@@ -70,10 +81,14 @@ const items = [
    * @returns {items[]} array of all items which belong to the given category
    */
   function filterItemsByCategoryId(categoryId) {
+    return items.filter((item)=>item.categoryId === categoryId)
     // TODO: use the .filter() method to filter out all items which don't belong the passed in category
   }
   
   function logCartItems() {
+    return cart.map(itemIndex=>{
+      return items[itemIndex].name
+    })
     // TODO: Loop through your cart and use the indexes to log the names of all items in your cart
   }
   
@@ -81,6 +96,11 @@ const items = [
    * @returns { number } returns the total price of items in your cart
    */
   function calculateTotalCartPrice() {
+    return items.reduce((final, item)=>{
+      const price = item.price
+      const invPrice = price * item.inventory
+      return final + item.price
+    },0)
     // TODO: Loop through your cart and return the total price of all items in your cart
   }
   
